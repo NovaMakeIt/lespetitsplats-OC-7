@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Petits Plats</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .search-input:focus + .search-button {
+            background-color: #3f3f3f;
+        }
+        .header-container {
+            background-image: url('/assets/images/home.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header Section -->
+    <header class="header-container w-full max-h-[667px] h-[667px] flex flex-col items-center relative">
+        <!-- Logo -->
+        <div class="w-full max-w-7xl mx-auto px-4 pt-6">
+            <img src="/assets/logo/logo.png" alt="Les Petits Plats"/>
+        </div>
+        
+        <!-- Centered Text -->
+        <div class="flex-1 flex items-center justify-center">
+            <h2 class="text-white text-center font-bold text-4xl max-w-3xl px-4">
+                CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
+            </h2>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="w-full flex justify-center pb-12">
+            <div class="relative w-full max-w-[954px] mx-4">
+                <input 
+                    type="text" 
+                    placeholder="Rechercher une recette, un ingrédient, ..." 
+                    class="search-input w-full h-[72px] rounded-[11px] pl-6 pr-16 text-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-800"
+                >
+                <button class="search-button absolute right-[10px] top-1/2 transform -translate-y-1/2 w-[51px] h-[52px] bg-[#1B1B1B] rounded-[10px] flex items-center justify-center">
+                    <img src="/assets/icons/loop.svg" alt="Search" class="w-6 h-6">
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Body Section -->
+    <main class="w-full max-w-7xl mx-auto px-4 py-8">
+        <!-- Filters section will go here -->
+        
+        <!-- Recipes Grid -->
+        <div id="recipes-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+            <!-- Recipe cards will be inserted here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/data/recipes.js"></script>
+    <script src="/scripts/search_algorithms.js"></script>
+    <script src="/scripts/script.js"></script>
+</body>
+</html>
