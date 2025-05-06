@@ -104,7 +104,7 @@ function createRecipeCard(recipe) {
     // Structure de la carte
     card.innerHTML = `
         <div class="relative h-48 overflow-hidden">
-            <img src="/assets/recipes/${recipe.image}" alt="${recipe.name}" class="w-full h-full object-cover" />
+            <img src="./assets/recipes/${recipe.image}" alt="${recipe.name}" class="w-full h-full object-cover" />
             <div class="absolute top-2 right-2 bg-yellow-300 text-black text-xs font-semibold px-2 py-1 rounded-full">
                 ${timeDisplay}
             </div>
