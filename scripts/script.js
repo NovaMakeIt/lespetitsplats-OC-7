@@ -13,6 +13,10 @@ function init() {
     // Affichage initial de toutes les recettes
     displayRecipes(recipes);
     
+    // Initialiser les filtres
+    window.filters.init(recipes);
+    window.filters.initEvents();
+    
     // Event listeners
     // searchInput.addEventListener('input', handleSearch);
     searchButton.addEventListener('click', handleSearch);
@@ -33,11 +37,14 @@ function handleSearch(event) {
         //currentRecipes = searchRecipesWithLoops(recipes, searchTerm);
         
         // OPTION 2 : Algorithme avec programmation fonctionnelle
-         currentRecipes = searchRecipesWithFunctional(recipes, searchTerm);
+        currentRecipes = searchRecipesWithFunctional(recipes, searchTerm);
     }
     
-    // Afficher les recettes filtrées
-    displayRecipes(currentRecipes);
+    // Mettre à jour les filtres disponibles
+    window.filters.init(currentRecipes);
+    
+    // Filtrer les recettes avec les filtres sélectionnés
+    window.filters.filter();
 }
 
 /**
