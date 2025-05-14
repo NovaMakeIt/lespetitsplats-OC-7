@@ -4,59 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Petits Plats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yellow-custom': '#FFD15B',
+                    },
+                    fontFamily: {
+                        'anton': ['Anton', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        .search-input:focus + .search-button {
-            background-color: #3f3f3f;
-        }
-        .header-container {
-            background-image: url('./assets/images/home.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .filter-dropdown.active .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .filter-item {
-            cursor: pointer;
-            padding: 4px 8px;
-            font-size: 14px;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            border-radius: 4px;
-        }
-
-        .filter-item:hover {
-            background-color: #FFD15B;
-        }
-
-        .filter-tag {
-            display: inline-flex;
-            align-items: center;
-            background-color: #FFD15B;
-            color: black;
-            padding: 17px 18px;
-            gap: 60px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-right: 8px;
-            margin-top: 16px;
-        }
-
-        .filter-tag img {
-            margin-left: 8px;
-            cursor: pointer;
-        }
-
         .hidden-item {
             display: none;
         }
-        
-        .filter-content {
-            margin-top: 0 !important;
+        .filter-dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
         }
         
         .filter-dropdown.active .filter-content {
@@ -72,28 +43,28 @@
 </head>
 <body class="bg-gray-100">
     <!-- Header Section -->
-    <header class="header-container w-full max-h-[667px] h-[667px] flex flex-col items-center relative">
+    <header class="header-container w-full max-h-[667px] h-[667px] flex flex-col items-center relative bg-[url('./assets/images/home.jpg')] bg-cover bg-center">
         <!-- Logo -->
         <div class="w-full max-w-7xl mx-auto px-4 pt-6">
             <img src="./assets/logo/logo.png" alt="Les Petits Plats"/>
         </div>
         
-        <!-- Centered Text -->
-        <div class="flex-1 flex items-center justify-center">
-            <h2 class="text-white text-center font-bold text-4xl max-w-3xl px-4">
+        <!-- Content Container -->
+        <div class="flex-1 flex flex-col items-center justify-center gap-[50px] pb-12">
+            <!-- Centered Text -->
+            <h2 class="font-anton font-normal text-yellow-custom text-center font-bold text-[44px] max-w-3xl px-4">
                 CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
             </h2>
-        </div>
-        
-        <!-- Search Bar -->
-        <div class="w-full flex justify-center pb-12">
+            
+            <!-- Search Bar -->
             <div class="relative w-full max-w-[954px] mx-4">
                 <input 
                     type="text" 
                     placeholder="Rechercher une recette, un ingrédient, ..." 
-                    class="search-input w-full h-[72px] rounded-[11px] pl-6 pr-16 text-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-800"
+                    class="search-input w-full h-[72px] rounded-[11px] pl-6 pr-16 text-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-800 peer"
                 >
-                <button class="search-button absolute right-[10px] top-1/2 transform -translate-y-1/2 w-[51px] h-[52px] bg-[#1B1B1B] rounded-[10px] flex items-center justify-center">
+                <img src="./assets/icons/close.svg" alt="Effacer" class="clear-main-search hidden absolute right-[70px] top-1/2 transform -translate-y-1/2 w-5 h-5 cursor-pointer hover:opacity-80">
+                <button class="search-button absolute right-[10px] top-1/2 transform -translate-y-1/2 w-[51px] h-[52px] bg-[#1B1B1B] hover:bg-yellow-custom rounded-[10px] flex items-center justify-center peer-focus:bg-[#3f3f3f]">
                     <img src="./assets/icons/loop.svg" alt="Search" class="w-6 h-6">
                 </button>
             </div>
@@ -106,54 +77,67 @@
         <div class="filters-section mt-6">
             
             
-            <!-- Filters dropdowns -->
-            <div class="flex flex-wrap gap-4">
-                <!-- Ingredients filter -->
-                <div class="filter-dropdown relative" id="ingredients-dropdown">
-                    <button class="filter-btn flex items-center justify-between gap-[63px] h-[56px] bg-white rounded-[11px] px-4 py-[17px] shadow-md">
-                        <span>Ingrédients</span>
-                        <img src="./assets/icons/arrow.svg" alt="Ouvrir" class="dropdown-arrow w-4 h-4 transition-transform">
-                    </button>
-                    <div class="filter-content hidden absolute top-full left-0  mt-2 bg-white rounded-[11px] p-4 shadow-lg z-10">
-                        <div class="relative mb-4">
-                            <input type="text" class="filter-search w-full h-[36px] pl-3 pr-10 rounded-[2px] border border-gray-300 focus:outline-none">
-                            <img src="./assets/icons/search.svg" alt="Rechercher" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4">
-                            <img src="./assets/icons/close.svg" alt="Effacer" class="clear-search hidden absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer">
-                        </div>
-                        <div class="filter-items grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto"></div>
+            <!-- Header with filters and recipe count -->
+            <div class="flex flex-wrap justify-between items-center mb-4">
+                <!-- Filters dropdowns -->
+                <div class="flex flex-wrap gap-12">
+                    <!-- Ingredients filter -->
+                    <div class="filter-dropdown relative group" id="ingredients-dropdown">
+                        <button class="filter-btn flex items-center justify-between gap-[63px] h-[56px] bg-white rounded-[11px] px-4 py-[17px] shadow-md group-[.active]:rounded-b-none">
+                            <span>Ingrédients</span>
+                            <img src="./assets/icons/arrow.svg" alt="Ouvrir" class="dropdown-arrow w-4 h-4 transition-transform group-[.active]:rotate-180">
+                        </button>
+                        <div class="filter-content hidden absolute top-full left-0 mt-0 bg-white rounded-[11px] p-4 shadow-lg z-10 group-[.active]:block group-[.active]:rounded-t-none">
+                            <div class="relative mb-4">
+                                <input type="text" class="filter-search w-full h-[36px] pl-3 pr-10 rounded-[2px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
+                                <img src="./assets/icons/search.svg" alt="Rechercher" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4">
+                                <img src="./assets/icons/close.svg" alt="Effacer" class="clear-search hidden absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer hover:opacity-80">
+                            </div>
+                            <div class="filter-items grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto">
+
+                            </div>
                     </div>
                 </div>
                 
-                <!-- Appliances filter -->
-                <div class="filter-dropdown relative" id="appliances-dropdown">
-                    <button class="filter-btn flex items-center justify-between gap-[63px] h-[56px] bg-white rounded-[11px] px-4 py-[17px] shadow-md">
-                        <span>Appareils</span>
-                        <img src="./assets/icons/arrow.svg" alt="Ouvrir" class="dropdown-arrow w-4 h-4 transition-transform">
-                    </button>
-                    <div class="filter-content hidden absolute top-full left-0 mt-2 bg-white rounded-[11px] p-4 shadow-lg z-10">
-                        <div class="relative mb-4">
-                            <input type="text" class="filter-search w-full h-[36px] pl-3 pr-10 rounded-[2px] border border-gray-300 focus:outline-none">
-                            <img src="./assets/icons/search.svg" alt="Rechercher" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4">
-                            <img src="./assets/icons/close.svg" alt="Effacer" class="clear-search hidden absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer">
-                        </div>
-                        <div class="filter-items grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto"></div>
+                    <!-- Appliances filter -->
+                    <div class="filter-dropdown relative group" id="appliances-dropdown">
+                        <button class="filter-btn flex items-center justify-between gap-[63px] h-[56px] bg-white rounded-[11px] px-4 py-[17px] shadow-md group-[.active]:rounded-b-none">
+                            <span>Appareils</span>
+                            <img src="./assets/icons/arrow.svg" alt="Ouvrir" class="dropdown-arrow w-4 h-4 transition-transform group-[.active]:rotate-180">
+                        </button>
+                        <div class="filter-content hidden absolute top-full left-0 mt-0 bg-white rounded-[11px] p-4 shadow-lg z-10 group-[.active]:block group-[.active]:rounded-t-none">
+                            <div class="relative mb-4">
+                                <input type="text" class="filter-search w-full h-[36px] pl-3 pr-10 rounded-[2px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
+                                <img src="./assets/icons/search.svg" alt="Rechercher" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4">
+                                <img src="./assets/icons/close.svg" alt="Effacer" class="clear-search hidden absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer hover:opacity-80">
+                            </div>
+                            <div class="filter-items grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto">
+
+                            </div>
                     </div>
                 </div>
                 
-                <!-- Ustensils filter -->
-                <div class="filter-dropdown relative" id="ustensils-dropdown">
-                    <button class="filter-btn flex items-center justify-between gap-[63px] h-[56px] bg-white rounded-[11px] px-4 py-[17px] shadow-md">
-                        <span>Ustensiles</span>
-                        <img src="./assets/icons/arrow.svg" alt="Ouvrir" class="dropdown-arrow w-4 h-4 transition-transform">
-                    </button>
-                    <div class="filter-content hidden absolute top-full left-0 mt-2 bg-white rounded-[11px] p-4 shadow-lg z-10">
-                        <div class="relative mb-4">
-                            <input type="text" class="filter-search w-full h-[36px] pl-3 pr-10 rounded-[2px] border border-gray-300 focus:outline-none">
-                            <img src="./assets/icons/search.svg" alt="Rechercher" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4">
-                            <img src="./assets/icons/close.svg" alt="Effacer" class="clear-search hidden absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer">
-                        </div>
-                        <div class="filter-items grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto"></div>
+                    <!-- Ustensils filter -->
+                    <div class="filter-dropdown relative group" id="ustensils-dropdown">
+                        <button class="filter-btn flex items-center justify-between gap-[63px] h-[56px] bg-white rounded-[11px] px-4 py-[17px] shadow-md group-[.active]:rounded-b-none">
+                            <span>Ustensiles</span>
+                            <img src="./assets/icons/arrow.svg" alt="Ouvrir" class="dropdown-arrow w-4 h-4 transition-transform group-[.active]:rotate-180">
+                        </button>
+                        <div class="filter-content hidden absolute top-full left-0 mt-0 bg-white rounded-[11px] p-4 shadow-lg z-10 group-[.active]:block group-[.active]:rounded-t-none">
+                            <div class="relative mb-4">
+                                <input type="text" class="filter-search w-full h-[36px] pl-3 pr-10 rounded-[2px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
+                                <img src="./assets/icons/search.svg" alt="Rechercher" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4">
+                                <img src="./assets/icons/close.svg" alt="Effacer" class="clear-search hidden absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer hover:opacity-80">
+                            </div>
+                            <div class="filter-items grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto">
+
+                            </div>
                     </div>
+                </div>
+                </div>
+                <!-- Recipe count -->
+                <div id="recipe-count" class="font-anton font-normal text-[21px] leading-[100%] tracking-[0%] text-black">
+                    0 recettes
                 </div>
             </div>
 
@@ -163,7 +147,7 @@
         </div>
         
         <!-- Recipes Grid -->
-        <div id="recipes-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+        <div id="recipes-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-8">
             <!-- Recipe cards -->
         </div>
     </main>

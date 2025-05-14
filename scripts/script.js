@@ -2,9 +2,11 @@
 const recipesContainer = document.getElementById('recipes-container');
 const searchInput = document.querySelector('.search-input');
 const searchButton = document.querySelector('.search-button');
+const clearMainSearch = document.querySelector('.clear-main-search');
+const recipeCount = document.getElementById('recipe-count');
 
 // Variables globales
-let currentRecipes = [...recipes]; // Copie des recettes pour manipulation
+let currentRecipes = [...recipes]; // Copie des recettes
 
 /**
  * Fonction d'initialisation
@@ -19,7 +21,31 @@ function init() {
     
     // Event listeners
     // searchInput.addEventListener('input', handleSearch);
+    searchInput.addEventListener('input', handleSearchInputChange);
     searchButton.addEventListener('click', handleSearch);
+    clearMainSearch.addEventListener('click', clearSearch);
+}
+
+/**
+ * Gère le changement de texte dans la barre de recherche
+ * @param {Event} event - L'événement déclencheur
+ */
+function handleSearchInputChange(event) {
+    // Afficher/masquer le bouton de suppression
+    if (searchInput.value.length > 0) {
+        clearMainSearch.classList.remove('hidden');
+    } else {
+        clearMainSearch.classList.add('hidden');
+    }
+}
+
+/**
+ * Efface la barre de recherche
+ */
+function clearSearch() {
+    searchInput.value = '';
+    clearMainSearch.classList.add('hidden');
+    searchInput.focus();
 }
 
 /**
@@ -55,6 +81,9 @@ function displayRecipes(recipesToDisplay) {
     // Vider le conteneur
     recipesContainer.innerHTML = '';
     
+    // Mettre à jour le compteur de recettes
+    updateRecipeCount(recipesToDisplay.length);
+    
     // Si aucune recette trouvée
     if (recipesToDisplay.length === 0) {
         recipesContainer.innerHTML = `
@@ -79,7 +108,7 @@ function displayRecipes(recipesToDisplay) {
 function createRecipeCard(recipe) {
     // Créer l'élément conteneur
     const card = document.createElement('div');
-    card.className = 'w-full bg-white rounded-3xl shadow-lg overflow-hidden';
+    card.className = 'w-full bg-white rounded-3xl shadow-lg overflow-hidden cursor-pointer';
     
     // Format du temps
     const timeDisplay = `${recipe.time}min`;
@@ -134,6 +163,14 @@ function createRecipeCard(recipe) {
     `;
     
     return card;
+}
+
+/**
+ * Met à jour le compteur de recettes
+ * @param {Number} count - Le nombre de recettes à afficher
+ */
+function updateRecipeCount(count) {
+    recipeCount.textContent = `${count} recettes`;
 }
 
 // Lancer l'initialisation au chargement de la page

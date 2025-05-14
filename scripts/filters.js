@@ -84,7 +84,7 @@ function updateFilterDisplay(filterType) {
         
         // Créer l'élément du filtre
         const filterItem = document.createElement('div');
-        filterItem.className = 'filter-item';
+        filterItem.className = 'filter-item cursor-pointer p-2 text-sm whitespace-nowrap overflow-hidden text-ellipsis rounded hover:bg-yellow-custom transition-colors';
         filterItem.textContent = capitalizeFirstLetter(filter);
         filterItem.dataset.value = filter;
         filterItem.dataset.type = filterType;
@@ -159,11 +159,11 @@ function addFilterTag(filterType, filterValue) {
     
     // Créer le tag
     const tag = document.createElement('div');
-    tag.className = 'filter-tag';
+    tag.className = 'filter-tag inline-flex items-center bg-yellow-custom text-black py-4 px-4 gap-[60px] rounded-[10px] text-sm mr-2 mt-4';
     tag.id = tagId;
     tag.innerHTML = `
         ${capitalizeFirstLetter(filterValue)}
-        <img src="./assets/icons/close.svg" alt="Supprimer" class="w-4 h-4">
+        <img src="./assets/icons/close.svg" alt="Supprimer" class="w-4 h-4 ml-2 cursor-pointer hover:opacity-80">
     `;
     
     // Ajouter l'événement de clic pour supprimer le tag
@@ -261,6 +261,11 @@ function filterRecipes() {
     
     // Afficher les recettes filtrées
     displayRecipes(filteredRecipes);
+    
+    // Mettre à jour le compteur de recettes
+    if (typeof updateRecipeCount === 'function') {
+        updateRecipeCount(filteredRecipes.length);
+    }
 }
 
 /**
